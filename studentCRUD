@@ -1,0 +1,121 @@
+import java.util.*;
+
+class Student{
+    int id;
+    String name;
+    int age;
+
+    public  Student(int id,String name, int age){
+        this.id = id;
+        this.name = name;
+        this.age = age;
+
+    }
+
+    public String toString(){
+        return "ID : " + id + "NAME : " + name + "AGE : "+ age;
+    }
+}
+
+public class studentCRUD{
+    static Map<Integer,Student>studentMap = new HashMap<>();
+
+    static Scanner sc = new Scanner(System.in);
+
+    public static void addStudent(){
+        System.out.print("Enter ID : ");
+        int id = sc.nextInt();
+
+        if(studentMap.containsKey(id)){
+            System.out.println("Student with id is already exists ! ");
+        }
+        
+        System.out.println("Enter Student Age : ");
+        int  age = sc.nextInt();
+        
+        System.out.println("Enter Student Name : ");
+        String name = sc.nextLine();
+
+        
+        studentMap.put(id, new Student(id,name,age));
+
+        System.out.println("Student Added Successfully ");
+
+    }
+
+    public static void viewStudent(){
+        System.out.print("Enter ID to view : ");
+        int id = sc.nextInt();
+
+        if(studentMap.containsKey(id)){
+            System.out.println(studentMap.get(id));
+        }else{
+            System.out.println("Student Not Found ! ");
+        }
+    }
+
+    public static void updateStudent(){
+        System.out.print("Enter Student Id to Update : ");
+        int id = sc.nextInt();
+        sc.nextLine();
+
+        if(!studentMap.containsKey(id)){
+            System.out.println("Student Not Found ! ");
+        }
+        System.out.print("Enter New Student Name : ");
+        String name = sc.nextLine();
+
+        System.out.print("Enter New Student Age : ");
+        int age = sc.nextInt();
+
+        studentMap.put(id,new Student(id,name,age));
+        System.out.println("Student Updated Successfully ");
+    }
+
+    public static void deleteStudent(){
+        System.out.print("Enter Student ID to Delete : ");
+        int id = sc.nextInt();
+
+        if(studentMap.containsKey(id)){
+            studentMap.remove(id);
+            System.out.println("Student Deleted Successfully ");
+        }else{
+            System.out.println("Student Not Found ! ");
+        }
+    }
+
+    public static void listStudent(){
+        if(studentMap.isEmpty()){
+            System.out.println("No Student Record Found !");
+        }else{
+            System.out.println("All Students : ");
+            for(Student s : studentMap.values()){
+                System.out.println(s);
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        int choice;
+        do{
+                System.out.println("\n--------Student CRUD System------------");
+                System.out.println("1.add Student ");
+                System.out.println("2.view Student ");
+                System.out.println("3.Update Student ");
+                System.out.println("4.Delete Student ");
+                System.out.println("5.List All Student ");
+                System.out.println("0.Exit ");
+                System.out.println("Enter Your choice  ");
+                choice = sc.nextInt();
+                switch(choice){
+                    case 1 : addStudent(); break;
+                    case 2 : viewStudent(); break;
+                    case 3 : updateStudent(); break;
+                    case 4 : deleteStudent(); break;
+                    case 5 : listStudent(); break;
+                    case 0 : System.out.println("Exiting....");  break;
+                    default: System.out.println("Invalid Choice, Try Again ! ");
+                }
+            }while(choice != 0);
+    }
+}
